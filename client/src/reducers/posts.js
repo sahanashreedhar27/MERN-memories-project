@@ -12,6 +12,10 @@ export default (posts = [], action) => {
       return posts.map(post =>
         post._id === action.payload._id ? action.payload : post
       );
+    case 'DELETE':
+      // Return all the posts except the one that was deleted.
+      // In oreder to implement this, we use a filter to filter out the posts based on the passed ID
+      return posts.filter(post => post._id !== action.payload);
     default:
       return posts;
   }

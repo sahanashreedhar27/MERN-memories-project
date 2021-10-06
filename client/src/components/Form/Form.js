@@ -5,7 +5,7 @@ import useStyles from './styles';
 import { useDispatch } from 'react-redux';
 import { createPost, updatePost } from '../../actions/posts';
 import { useSelector } from 'react-redux';
-// This is a test comment
+
 // We have used material-ui in oreder to avoid huge css files
 const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
@@ -33,16 +33,29 @@ const Form = ({ currentId, setCurrentId }) => {
     if (post) setPostData(post);
   }, [post]);
 
-  const handleSubmit = e => {
+  const clear = () => {
+    setCurrentId = 0;
+    setPostData({
+      creator: '',
+      title: '',
+      message: '',
+      tags: '',
+      selectedFile: ''
+    });
+  };
+
+  const handleSubmit = async e => {
     //   Not to get the refresh in the browser
     e.preventDefault();
-    if (currentId) {
-      dispatch(updatePost(currentId, postData));
-    } else {
+    if (currentId === 0) {
       dispatch(createPost(postData));
+      clear();
+    } else {
+      dispatch(updatePost(currentId, postData));
+      clear();
     }
   };
-  const clear = () => {};
+
   return (
     <Paper className={classes.paper}>
       <form
@@ -51,7 +64,9 @@ const Form = ({ currentId, setCurrentId }) => {
         className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant='h6'>Creating a Memory</Typography>
+        <Typography variant='h6'>
+          {currentId ? 'Editing' : 'Creating'} a Memory
+        </Typography>
         {/* Inorder to spread the post data, we use '...' */}
         <TextField
           name='creator'

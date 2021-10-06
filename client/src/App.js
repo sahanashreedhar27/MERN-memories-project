@@ -7,13 +7,21 @@ import Posts from './components/Posts/Posts';
 import Form from './components/Form/Form';
 import useStyles from './styles';
 
+// In order to implement a new functionality each time
+// (1) Create a route in the router (Server)
+// (2) Implement the funtion in the controller (Server)
+// (3) Implement in the API call. (Client)
+// (4) Create an action creator function. (Client)
+// (5) Create a case in the reducer. (Client)
+// (6) Add the action in the front end (either button onClick etc.) (Client)
 const App = () => {
   const [currentId, setCurrentId] = useState(null);
   const classes = useStyles();
   const dispatch = useDispatch();
+  // while using dispatch, we are passing the currentId as well becasue we want a refresh to occure on update
   useEffect(() => {
     dispatch(getPosts());
-  }, [dispatch]);
+  }, [currentId, dispatch]);
   return (
     <Container maxidth='lg'>
       <AppBar className={classes.appBar} position='static' color='inherit'>
@@ -31,7 +39,7 @@ const App = () => {
         <Container>
           <Grid
             container
-            justify='space-between'
+            justifyContent='space-between'
             alignItems='stretch'
             spacing={3}
           >
