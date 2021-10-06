@@ -6,6 +6,12 @@ export default (posts = [], action) => {
     case 'CREATE':
       // '...posts' takes the current posts and then 'action.payload' adds the new post
       return [...posts, action.payload];
+    case 'UPDATE':
+      // Here .map() works like .append()
+      // post is the parameter taht is checked.
+      return posts.map(post =>
+        post._id === action.payload._id ? action.payload : post
+      );
     default:
       return posts;
   }

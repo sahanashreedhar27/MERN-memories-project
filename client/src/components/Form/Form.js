@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import FileBase from 'react-file-base64';
 import useStyles from './styles';
 import { useDispatch } from 'react-redux';
-import { createPost } from '../../actions/posts';
+import { createPost, updatePost } from '../../actions/posts';
+import { useSelector } from 'react-redux';
+
 // We have used material-ui in oreder to avoid huge css files
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
     creator: '',
     title: '',
@@ -13,12 +15,32 @@ const Form = () => {
     tags: '',
     selectedFile: ''
   });
+
+  // post will ahve the data to be updated
+  // ternary operator is been used to check if the post id is same as the current ID. A find operation is used to find post in state.posts
+  const post = useSelector(state =>
+    currentId ? state.posts.find(p => p._id === currentId) : null
+  );
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  // useEffect is used to populate the values of the form
+  // useEffect has 2 parmeters  :-
+  // (1) Call back function - When this call back function should run
+  // (2) Dependancy array - What are the changes to be made
+  // Syntax : useEffect(() => {}, []);
+  useEffect(() => {
+    if (post) setPostData(post);
+  }, [post]);
+
   const handleSubmit = e => {
     //   Not to get the refresh in the browser
     e.preventDefault();
-    dispatch(createPost(postData));
+    if (currentId) {
+      dispatch(updatePost(currentId, postData));
+    } else {
+      dispatch(createPost(postData));
+    }
   };
   const clear = () => {};
   return (
