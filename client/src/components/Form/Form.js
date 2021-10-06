@@ -5,7 +5,7 @@ import useStyles from './styles';
 import { useDispatch } from 'react-redux';
 import { createPost, updatePost } from '../../actions/posts';
 import { useSelector } from 'react-redux';
-
+// This is a test comment
 // We have used material-ui in oreder to avoid huge css files
 const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
