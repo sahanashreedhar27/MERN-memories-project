@@ -14,7 +14,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment';
 import useStyles from './styles';
 import { useDispatch } from 'react-redux'; // This is used in order to set up the reducer
-import { deletePost } from '../../../actions/posts'; //This is used in order to set up the action
+import { deletePost, likePost } from '../../../actions/posts'; //This is used in order to set up the action
 
 const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
@@ -50,12 +50,21 @@ const Post = ({ post, setCurrentId }) => {
         {post.title}
       </Typography>
       <CardContent>
-        <Typography className={classes.title} varient='h5' gutterBottom>
+        <Typography
+          className={classes.title}
+          varient='body2'
+          color='textSecondary'
+          component='p'
+        >
           {post.message}
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button size='small' color='primary' onClick={() => {}}>
+        <Button
+          size='small'
+          color='primary'
+          onClick={() => dispatch(likePost(post._id))}
+        >
           <ThumbUpAltIcon fontSize='small' />
           Like
           {post.likeCount}

@@ -34,6 +34,7 @@ const Form = ({ currentId, setCurrentId }) => {
   }, [post]);
 
   const clear = () => {
+    console.log(setCurrentId);
     setCurrentId = 0;
     setPostData({
       creator: '',
@@ -42,6 +43,7 @@ const Form = ({ currentId, setCurrentId }) => {
       tags: '',
       selectedFile: ''
     });
+    console.log(setCurrentId);
   };
 
   const handleSubmit = async e => {
@@ -65,7 +67,7 @@ const Form = ({ currentId, setCurrentId }) => {
         onSubmit={handleSubmit}
       >
         <Typography variant='h6'>
-          {currentId ? 'Editing' : 'Creating'} a Memory
+          {currentId !== 0 ? 'Editing' : 'Creating'} a Memory
         </Typography>
         {/* Inorder to spread the post data, we use '...' */}
         <TextField

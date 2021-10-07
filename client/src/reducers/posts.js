@@ -7,6 +7,7 @@ export default (posts = [], action) => {
       // '...posts' takes the current posts and then 'action.payload' adds the new post
       return [...posts, action.payload];
     case 'UPDATE':
+    case 'LIKE':
       // Here .map() works like .append()
       // post is the parameter taht is checked.
       return posts.map(post =>
