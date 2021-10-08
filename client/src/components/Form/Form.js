@@ -35,7 +35,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const clear = () => {
     console.log(setCurrentId);
-    setCurrentId = 0;
+    setCurrentId(0);
     setPostData({
       creator: '',
       title: '',
@@ -67,7 +67,7 @@ const Form = ({ currentId, setCurrentId }) => {
         onSubmit={handleSubmit}
       >
         <Typography variant='h6'>
-          {currentId !== 0 ? 'Editing' : 'Creating'} a Memory
+          {currentId ? 'Editing' : 'Creating'} a Memory
         </Typography>
         {/* Inorder to spread the post data, we use '...' */}
         <TextField
@@ -100,7 +100,9 @@ const Form = ({ currentId, setCurrentId }) => {
           label='Tags'
           fullWidth
           value={postData.tags}
-          onChange={e => setPostData({ ...postData, tags: e.target.value })}
+          onChange={e =>
+            setPostData({ ...postData, tags: e.target.value.split(',') })
+          }
         />
         <div className={classes.fileInput}>
           <FileBase
