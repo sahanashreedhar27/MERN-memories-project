@@ -1,5 +1,5 @@
 import axios from 'axios';
-const url = 'https://mern--memories-project.herokuapp.com/posts';
+const url = 'https://mern-memories-app-project.netlify.app/posts';
 
 export const fetchPosts = () => axios.get(url);
 export const createPost = newPost => axios.post(url, newPost);
