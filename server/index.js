@@ -13,11 +13,9 @@ app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
 app.use('/posts', postRoutes);
 // cloud atlas version of mongoDB is been used
-const CONNECTION_URL =
-  'mongodb+srv://javascriptmastery:javascriptmastery123@cluster0.phe5c.mongodb.net/myFirstDatabase';
 const PORT = 5000;
 mongoose
-  .connect(CONNECTION_URL, {
+  .connect(process.env.CONNECTION_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })

@@ -4,10 +4,10 @@ import Posts from '../Posts/Posts';
 import { useDispatch } from 'react-redux';
 import { getPosts } from '../../actions/posts';
 import Form from '../Form/Form';
+import { useStyles } from './styles';
 
 const Home = () => {
   const [currentId, setCurrentId] = useState(null);
-  const classes = useStyles();
   const dispatch = useDispatch();
   // while using dispatch, we are passing the currentId as well becasue we want a refresh to occure on update
   useEffect(() => {
@@ -17,7 +17,6 @@ const Home = () => {
     <Grow in>
       <Container>
         <Grid
-          className={classes.mainContainer}
           container
           justifyContent='space-between'
           alignItems='stretch'
